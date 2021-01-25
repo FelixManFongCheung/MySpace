@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="top-container">
+
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand">
+                <h2>MySpace</h2>
+            </a>
+            <form action="/search" method="post" id="search-box" class="form-inline">
+                <input name="search" id="searchBox" class="form-control mr-sm-2" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button id="searchButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+
+    </div>
+
+    <div class="background-image">
+
+        <img draggable="false" alt="Photo by elfy in Whispers from the Heart." class="FFVAD" decoding="auto"
+            sizes="600px"
+            srcset="https://instagram.fhkg1-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/128257133_1504409019754176_945676579299782310_n.jpg?_nc_ht=instagram.fhkg1-1.fna.fbcdn.net&amp;_nc_cat=100&amp;_nc_ohc=HpQJoRjM2nMAX9MgBMe&amp;tp=1&amp;oh=b052bf1d92f30176e6f269750dc34473&amp;oe=60208AEA 640w,https://instagram.fhkg1-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s750x750/128257133_1504409019754176_945676579299782310_n.jpg?_nc_ht=instagram.fhkg1-1.fna.fbcdn.net&amp;_nc_cat=100&amp;_nc_ohc=HpQJoRjM2nMAX9MgBMe&amp;tp=1&amp;oh=a5709c69bdce12c2b9d1b39c99afabcb&amp;oe=601FCAAE 750w,https://instagram.fhkg1-1.fna.fbcdn.net/v/t51.2885-15/e35/128257133_1504409019754176_945676579299782310_n.jpg?_nc_ht=instagram.fhkg1-1.fna.fbcdn.net&amp;_nc_cat=100&amp;_nc_ohc=HpQJoRjM2nMAX9MgBMe&amp;tp=1&amp;oh=5dd67c7060e92108444d86b5aa63a64c&amp;oe=601E8354 1080w"
+            src="https://instagram.fhkg1-1.fna.fbcdn.net/v/t51.2885-15/e35/128257133_1504409019754176_945676579299782310_n.jpg?_nc_ht=instagram.fhkg1-1.fna.fbcdn.net&amp;_nc_cat=100&amp;_nc_ohc=HpQJoRjM2nMAX9MgBMe&amp;tp=1&amp;oh=5dd67c7060e92108444d86b5aa63a64c&amp;oe=601E8354"
+            style="object-fit: cover;">
+
+        <form class="inner-form" action="/" method="post">
+            <div class="form-group">
+                <label>Event</label>
+                <input class="form-control" name="event" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="3" name="description"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+
+    <div id="noteContainer" class="notes container">
+        <div class="row">
+            <% Felix.forEach((e) => { %>
+            <div class="empty col-lg-4 col-md-6 col-sm-12">
+                <div data-tilt class="note" id="<%= e._id %>" draggable="true">
+                    <h1>No. <%= Felix.indexOf(e)+1 %></h1>
+                    <h2><%= e.title %></h2>
+                    <p><%= e.content %></p>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+        <form name="cat" action="/cat" method="post">
+            <div class="trashCan" draggable="false">
+                <img id="pussy" src="catface1.png" alt="pussy" draggable="false">
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+
+    <div class="footer" id="footer" style="height: 4em;">
+        <p>@ <span style="text-decoration: line-through">Felix Man</span></p>
+    </div>
+
+
+    <script>
+        //matching footer height and note margin
+        var noteContainer = document.getElementById("noteContainer");
+        var footer = document.getElementById("footer");
+        noteContainer.style.marginBottom = footer.style.height;
+
+        // define cat
+        var pussy = document.getElementById("pussy");
+
+        //cat trash can 
+        var notes = document.getElementsByClassName("note");
+        // Fill listeners
+        for (const item of notes) {
+            item.addEventListener('dragstart', dragStart);
+            item.addEventListener('dragend', dragEnd);
+        }
+
+        // adding drap n drop events to cat
+        pussy.addEventListener('dragover', dragOver);
+        pussy.addEventListener('dragenter', dragEnter);
+        pussy.addEventListener('dragleave', dragLeave);
+        pussy.addEventListener('drop', dragDrop);
+        var noteId; //the main difference between let and var is that 
+        // scope of a variable defined with lett is limited to the block 
+        // in which it is declared while variable decalred with var has 
+        // the global scope.
+
+        // Drag Functions
+        function dragStart(item) {
+            setTimeout(() => (this.className = 'hold'), 0);
+            noteId = this.id;
+            pussy.scrollIntoView();
+        }
+
+        function dragEnd() {
+            this.className = 'note';
+            document.getElementById("pussy").src = "catface1.png";
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function dragEnter(e) {
+            e.preventDefault();
+            this.src = "catface2.png";
+        }
+
+        function dragLeave() {
+            this.src = 'catface1.png';
+        }
+
+
+        // function to trigger the deleteOne()
+        function dragDrop() {
+            let form = document.forms["cat"];
+            let input = document.createElement("input");
+            input.setAttribute("name", "ID");
+            input.setAttribute("value", noteId);
+            input.style.display = "none";
+            form.appendChild(input);
+            form.submit();
+        }
+        const matches = <%- Match %>;
+        console.log(matches[0]);
+
+
+        for (const match of matches) {
+            document.getElementById(match).style.background = "rgb(166, 164, 206)";
+        }
+    </script>
+
+    <script type="text/javascript" src="vanilla-tilt.min.js"></script>
+</body>
+
+</html>

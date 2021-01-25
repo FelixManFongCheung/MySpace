@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;;
+}
+
+.background-image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+    img {
+        margin: 0 auto;
+    }
+
+
+    .inner-form {
+        position: absolute;
+        padding: 2em;
+        height: 300px;
+        width: 400px;
+        background: rgba(75, 69, 69, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(2.0px);
+        -webkit-backdrop-filter: blur(2.0px);
+        border-radius: 10px;
+    }
+
+    button {
+        float: right;
+        margin-top: 1.5em;
+    }
+
+    textarea {
+        resize: none;
+    }
+}
+
+
+.top-container {
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    nav {
+        padding: 1em;
+    }
+
+    #search-box {
+        display: inline-flex;
+
+        input {
+            margin: 7px;
+        }
+    }
+}
+
+
+.footer {
+    box-sizing: border-box;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba($color: #d3cdcd, $alpha: 1.0);
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    padding-top: 1em;
+    backdrop-filter: blur(2.0px);
+    -webkit-backdrop-filter: blur(2.0px);
+}
+
+.notes {
+    text-align: center;
+    display: flexbox;
+
+    .empty {
+        margin: auto;
+        height: 12em;
+
+        .note {
+            box-sizing: border-box;
+            height: 70%;
+            background: rgba(102, 36, 36, 0.25);
+            backdrop-filter: blur(2.0px);
+            -webkit-backdrop-filter: blur(2.0px);
+            position: relative;
+            cursor: pointer;
+        }
+
+        p {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            white-space: pre-line;
+        }
+
+        h1 {
+            position: absolute;
+            top: -50px;
+            left: -30px;
+            transform: scale(1, 4);
+
+        }
+    }
+
+    .trashCan {
+        height: 200px;
+        width: 140px;
+        margin: 0 auto;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            opacity: 50%;
+        }
+    }
+}
+
+.hold {
+    background: rgb(143, 133, 133);
+    opacity: 20%;
+    height: 70%;
+}
+
+
+.hovered {
+    background: #f4f4f4;
+    border-style: dashed;
+}
+
